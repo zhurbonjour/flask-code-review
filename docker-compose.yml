@@ -18,6 +18,7 @@ services:
     depends_on:
       - db
       - redis
+  #  Связь контейнеров через links не требуется в современных версиях Docker
     links:
       - db
       - redis

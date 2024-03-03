@@ -1,3 +1,5 @@
+# Чтобы не повторяться, сошлюсь на запись о стайлгайдах и форматтерах 
+# в tickets/app.py
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -17,10 +19,15 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = "postgresql://ticketsuser:easypass@localhost/tickets"
 
 
+# Полагаю, нет смысла переопределять здесь переменную DEBUG,
+# так как она определена в родительском классе.
+# Можно, например, поставить заглушку чтобы не отходить от концепции
 class ProductionConfig(Config):
     DEBUG = False
 
-
+# Нужна ли нам здесь и далее переменная DEVELOPMENT?
+# поиск использования по проекту не дал результатов
+# полагаю, она появилась здесь случайно
 class StagingConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
