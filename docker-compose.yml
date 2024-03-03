@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: webapp-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - 5000:8080
+    depends_on:
+      - web
+  web:
+    restart: always
+    build: .
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+      - redis
+    links:
+      - db
+      - redis
+    volumes:
+        - .:/code
+    env_file:
+      - .env
+
+  db:
+    restart: always
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: ticketsuser
+      POSTGRES_PASSWORD: easypass
+      POSTGRES_DB: tickets
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - "5432"
+
+  redis:
+    image: redis:alpine
+    restart: always
+
+volumes:
+  postgres_data:

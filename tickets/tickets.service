@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve tickets app
+After=network.target
+
+[Service]
+User=user
+Group=www-data
+WorkingDirectory=/home/user/PycharmProjects/pythonProject
+Environment="PATH=/home/user/PycharmProjects/pythonProject/venv/bin"
+ExecStart=/home/user/PycharmProjects/pythonProject/venv/bin/uwsgi --ini uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target
